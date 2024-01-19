@@ -1,0 +1,28 @@
+<html>
+    <head>
+    </head>
+    <script>
+        let timeout;
+        function debounceInterst() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                interest()
+            }, 1000);
+        }
+        async function interest() {
+            const Principal = document.getElementById("Principal").value;
+            const Rate = document.getElementById("Rate").value;
+            const Time = document.getElementById("Time").value;
+
+            const response = await fetch("http://localhost:3000/interest?principal=" + Principal + "&rate=" + Rate + "&time=" + Time)
+            const ans = await response.text();
+            document.getElementById("interest") = ans;
+        };
+    </script>
+    <body>
+        <input oninput="debounceInterst()" id="Principal" type="text", placeholder="principal"></input> <br></br>
+        <input oninput="debounceInterst()" id="Rate" type="text", placeholder="rate"></input> <br></br>
+        <input oninput="debounceInterst()" id="Time" type="text", placeholder="time"></input> <br></br>
+        <div id="interest"></div>
+    </body>
+</html>
